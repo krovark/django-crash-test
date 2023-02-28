@@ -4,8 +4,8 @@ from . import views
 
 
 urlpatterns = [
-    path('customer/<str:pk>/', views.customer),
-    path('', views.home),
-    path('products/', views.products),
+    path('customer/<str:pk>/', views.customer, name="customer"),
+    path('', views.home, name="home"),
+    path('products/', views.products, name="products"),
     path('admin/', admin.site.urls),
 ]
