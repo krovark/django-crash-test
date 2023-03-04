@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('products/', views.products, name="products"),
     path('admin/', admin.site.urls),
+    path('create_order', views.createOrder, name="create_order"),
 ]
