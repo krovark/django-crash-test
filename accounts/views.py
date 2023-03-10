@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import OrderForm
 # Create your views here.
 
+#Home function
 
 def home(request):
     orders = Order.objects.all()
@@ -19,12 +20,13 @@ def home(request):
     return render(request, 'accounts/dashboard.html', context)
 
 
-
+#def Products, return the list of products in the home page
 
 def products(request):
     products = Product.objects.all()
     return render(request, 'accounts/products.html', {'products': products})
 
+#loads the customers of the DB to the home page
 
 def customer(request,pk):
     customer = Customer.objects.get(id=pk)
@@ -34,6 +36,8 @@ def customer(request,pk):
 
     context = {'customer': customer, 'orders': orders, 'orders_count': orders_count}
     return render(request, 'accounts/customers.html',context)
+
+#re-direct to the form page, this handle the creation of orders and then send it to the DB
 
 def createOrder(request):
     form = OrderForm()
@@ -47,6 +51,8 @@ def createOrder(request):
     context = {'form': form}
     return render(request, 'accounts/order_form.html', context)
 
+# same as createOrder, but this just update existing orders
+
 def updateOrder(request,pk):
 
     order = Order.objects.get(id=pk)
@@ -59,6 +65,8 @@ def updateOrder(request,pk):
 
     context = {'form': form}
     return render(request, 'accounts/order_form.html', context)
+
+# same as update but this delete orders
 
 def deleteOrder (request, pk):
 
