@@ -10,5 +10,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('create_order/<str:pk>/', views.createOrder, name="create_order"),
     path('update_order/<str:pk>/', views.updateOrder, name="update_order"),
-path('delete_order/<str:pk>/', views.deleteOrder, name="delete_order"),
+    path('delete_order/<str:pk>/', views.deleteOrder, name="delete_order"),
 ]

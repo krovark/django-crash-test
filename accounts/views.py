@@ -40,8 +40,8 @@ def customer(request,pk):
 #re-direct to the form page, this handle the creation of orders and then send it to the DB
 
 def createOrder(request,pk):
-    form = OrderForm()
     customer = Customer.objects.get(id=pk)
+    form = OrderForm(initial={'customer' : customer})
     if request.method == 'POST':
         #print("Printing POST", request.POST)
         form = OrderForm(request.POST)
