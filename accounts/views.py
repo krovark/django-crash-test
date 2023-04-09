@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.http import HttpResponse
 from .forms import OrderForm
+from django.forms import inlineformset_factory
 # Create your views here.
 
 #Home function
@@ -39,17 +40,21 @@ def customer(request,pk):
 
 #re-direct to the form page, this handle the creation of orders and then send it to the DB
 
+
 def createOrder(request,pk):
+    OrderFormSet = inlineformset_factory(Customer, Order, fields=('product', 'status'))
     customer = Customer.objects.get(id=pk)
-    form = OrderForm(initial={'customer' : customer})
+    formset = OrderFormSet(instance=customer)
+    #form = OrderForm(initial={'customer' : customer})
     if request.method == 'POST':
-        #print("Printing POST", request.POST)
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
+
+        #form = OrderForm(request.POST)
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
             return redirect('/')
 
-    context = {'form': form}
+    context = {'formset': formset}
     return render(request, 'accounts/order_form.html', context)
 
 # same as createOrder, but this just update existing orders
